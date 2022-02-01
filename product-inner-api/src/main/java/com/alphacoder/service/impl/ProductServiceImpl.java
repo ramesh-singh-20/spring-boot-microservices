@@ -3,6 +3,7 @@ package com.alphacoder.service.impl;
 import com.alphacoder.domain.error.ErrorDto;
 import com.alphacoder.domain.request.ProductRequest;
 import com.alphacoder.domain.response.ProductResponse;
+import com.alphacoder.domain.response.ProductResponseDto;
 import com.alphacoder.entity.Product;
 import com.alphacoder.exception.ApplicationDomainException;
 import com.alphacoder.mapper.ProductMapper;
@@ -46,14 +47,22 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<ProductResponse> getProducts(int page, int pageSize) {
+    public ProductResponseDto getProducts(int page, int pageSize) {
         Page<Product> paginatedProducts= getPaginatedProducts(page, pageSize);
+        ProductResponseDto productResponseDto= new ProductResponseDto();
         List<ProductResponse> products;
 
         if(paginatedProducts.hasContent()){
             products= new ArrayList<>();
             paginatedProducts.stream().forEach(
                     product -> products.add(this.mapper.mapProductEntityToProductResponse(product)));
+
+            if(!products.isEmpty()){
+                productResponseDto.setProducts(products);
+                productResponseDto.setTotalRecords(paginatedProducts.getTotalElements());
+                productResponseDto.setTotalPages(paginatedProducts.getTotalPages());
+                productResponseDto.setPageSize(pageSize);
+            }
 
         }else{
             log.error("Products not found in database.");
@@ -62,7 +71,7 @@ public class ProductServiceImpl implements ProductService {
             throw new ApplicationDomainException(errorDto, HttpStatus.NOT_FOUND);
         }
 
-        return null;
+        return productResponseDto;
     }
 
     @Override

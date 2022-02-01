@@ -7,10 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value= "/products")
@@ -23,5 +20,12 @@ public class ProductController {
     public ResponseEntity<ResponseDto> getProductById(@PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.
                 forSuccess(this.productService.getProductById(id)));
+    }
+
+    @GetMapping
+    public ResponseEntity<ResponseDto> getProducts(@RequestParam(value="page", required = true)int page,
+                                                   @RequestParam(value="pageSize", required = true)int pageSize){
+        return ResponseEntity.status(HttpStatus.OK).body(ResponseDto.
+                forSuccess(this.productService.getProducts(page, pageSize)));
     }
 }
