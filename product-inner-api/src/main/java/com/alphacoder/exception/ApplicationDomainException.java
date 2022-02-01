@@ -3,20 +3,18 @@ package com.alphacoder.exception;
 import com.alphacoder.domain.error.ErrorDto;
 import org.springframework.http.HttpStatus;
 
-import java.util.List;
-
 public class ApplicationDomainException extends RuntimeException{
-    private final List<ErrorDto> errors;
+    private final ErrorDto error;
     private final HttpStatus status;
 
-    public ApplicationDomainException(List<ErrorDto> errors, HttpStatus status){
+    public ApplicationDomainException(ErrorDto error, HttpStatus status){
         super();
-        this.errors= errors;
+        this.error= error;
         this.status= status;
     }
 
-    public List<ErrorDto> getErrors() {
-        return errors;
+    public ErrorDto getError() {
+        return error;
     }
 
     public HttpStatus getStatus() {

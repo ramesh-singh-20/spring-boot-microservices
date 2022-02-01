@@ -6,7 +6,7 @@ import com.alphacoder.entity.Product;
 import java.util.List;
 
 public interface ProductService {
-    public Product getProductById(String id);
+    public Product getProductById(Long id);
     public List<Product> getProducts(int page, int pageSize);
     public void addProduct(ProductRequest request);
     public void updateProduct(ProductRequest request);

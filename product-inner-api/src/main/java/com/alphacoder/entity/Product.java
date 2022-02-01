@@ -13,7 +13,7 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name= "ID")
-    private String id;
+    private Long id;
 
     @Column(name= "NAME", nullable = false)
     private String name;
@@ -29,7 +29,7 @@ public class Product {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product product = (Product) o;
-        return id.equals(product.id);
+        return Objects.equals(id, product.id);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ProductRequest {
-    private String id;
+    private Long id;
     private String name;
     private String description;
     private BigDecimal price;

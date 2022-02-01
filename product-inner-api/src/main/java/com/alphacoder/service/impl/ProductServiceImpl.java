@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +23,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository repository;
 
     @Override
-    public Product getProductById(String id) {
+    public Product getProductById(Long id) {
         log.info("Product id: "+id);
 
         Optional<Product> productOptional= this.repository.findById(id);
@@ -35,7 +34,7 @@ public class ProductServiceImpl implements ProductService {
             log.error("Product not found in database.");
             ErrorDto errorDto= ProductUtil.
                     createErrorDto("PRODUCT_1001", "Product not found with id: "+ id);
-            throw new ApplicationDomainException(Arrays.asList(errorDto), HttpStatus.NOT_FOUND);
+            throw new ApplicationDomainException(errorDto, HttpStatus.NOT_FOUND);
         }
     }
 
