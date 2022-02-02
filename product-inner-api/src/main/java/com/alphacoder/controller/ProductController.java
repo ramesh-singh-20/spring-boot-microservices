@@ -48,5 +48,11 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ResponseStatus.SUCCESS, null));
     }
 
+    @DeleteMapping(value= "/{id}")
+    public ResponseEntity<ResponseDto> deleteProductById(@PathVariable Long id){
+        this.productService.deleteProduct(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ResponseStatus.SUCCESS, null));
+    }
+
 
 }
