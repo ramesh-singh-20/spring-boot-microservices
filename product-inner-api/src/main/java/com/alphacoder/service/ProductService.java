@@ -9,5 +9,5 @@ public interface ProductService {
     public ProductResponseDto getProducts(int page, int pageSize);
     public void addProduct(ProductRequest request);
     public void updateProduct(ProductRequest request);
-    public void deleteProduct(String id);
+    public void deleteProduct(Long id);
 }

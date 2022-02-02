@@ -76,17 +76,23 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void addProduct(ProductRequest request) {
+        log.info("Product to be added: "+ request);
 
+        if(null!= request){
+            this.repository.save(this.mapper.mapProductRequestToProductEntity(request));
+        }
     }
 
     @Override
     public void updateProduct(ProductRequest request) {
-
+        log.info("Product to be updated: "+ request);
+        this.repository.save(this.mapper.mapProductRequestToProductEntity(request));
     }
 
     @Override
-    public void deleteProduct(String id) {
-
+    public void deleteProduct(Long id) {
+        log.info("Product id to be deleted: "+ id);
+       this.repository.deleteById(id);
     }
 
     private Page<Product> getPaginatedProducts(int page, int pageSize){
