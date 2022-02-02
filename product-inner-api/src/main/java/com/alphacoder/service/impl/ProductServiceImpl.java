@@ -86,7 +86,13 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void updateProduct(ProductRequest request) {
         log.info("Product to be updated: "+ request);
-        this.repository.save(this.mapper.mapProductRequestToProductEntity(request));
+        if(null!= request.getId() && this.repository.existsById(request.getId())){
+            this.repository.save(this.mapper.mapProductRequestToProductEntity(request));
+        }else{
+            ErrorDto error = ProductUtil.createErrorDto("PRODUCT_1001",
+                    "Product not found with id: "+ request.getId());
+            throw new ApplicationDomainException(error, HttpStatus.NOT_FOUND);
+        }
     }
 
     @Override

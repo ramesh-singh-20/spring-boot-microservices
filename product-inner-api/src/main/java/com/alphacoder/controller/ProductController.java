@@ -41,5 +41,12 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(ResponseStatus.SUCCESS, null));
     }
 
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<ResponseDto> updateProduct(@Valid @RequestBody ProductRequest request){
+        this.productService.updateProduct(request);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ResponseStatus.SUCCESS, null));
+    }
+
 
 }
