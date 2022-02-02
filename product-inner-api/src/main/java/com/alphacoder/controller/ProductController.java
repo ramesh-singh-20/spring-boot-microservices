@@ -37,6 +37,7 @@ public class ProductController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ResponseDto> addProduct(@Valid @RequestBody ProductRequest request){
+        this.productService.addProduct(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(ResponseStatus.SUCCESS, null));
     }
 
