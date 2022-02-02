@@ -5,6 +5,9 @@ import com.alphacoder.domain.response.ResponseDto;
 import com.alphacoder.exception.ApplicationDomainException;
 import com.alphacoder.util.ProductUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.exception.DataException;
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.persistence.PersistenceException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +60,15 @@ public class ProductControllerAdvice {
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(value = DataAccessException.class)
+    public ResponseEntity<?> handleDataAccessExceptionn(DataAccessException ex){
+        log.error(ex.getLocalizedMessage());
+        ErrorDto error= ProductUtil.createErrorDto("PRODUCT_1006",
+                "Something went wrong while connecting to database.");
+        ResponseDto responseDto= ResponseDto.forError(error);
+        return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleException(Exception ex){
         log.error(ex.getLocalizedMessage());
@@ -64,4 +77,5 @@ public class ProductControllerAdvice {
         ResponseDto responseDto= ResponseDto.forError(error);
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
 }
