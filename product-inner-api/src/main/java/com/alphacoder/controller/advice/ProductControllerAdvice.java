@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.DataException;
 import org.springframework.dao.DataAccessException;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -61,12 +62,21 @@ public class ProductControllerAdvice {
     }
 
     @ExceptionHandler(value = DataAccessException.class)
-    public ResponseEntity<?> handleDataAccessExceptionn(DataAccessException ex){
+    public ResponseEntity<?> handleDataAccessException(DataAccessException ex){
         log.error(ex.getLocalizedMessage());
         ErrorDto error= ProductUtil.createErrorDto("PRODUCT_1006",
                 "Something went wrong while connecting to database.");
         ResponseDto responseDto= ResponseDto.forError(error);
         return new ResponseEntity<>(responseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(value = EmptyResultDataAccessException.class)
+    public ResponseEntity<?> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex){
+        log.error(ex.getLocalizedMessage());
+        ErrorDto error= ProductUtil.createErrorDto("PRODUCT_1007",
+                "No data exists for the given input. Please check again");
+        ResponseDto responseDto= ResponseDto.forError(error);
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
