@@ -7,9 +7,15 @@ import com.alphacoder.util.ProductUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestControllerAdvice
 @Slf4j
@@ -29,6 +35,23 @@ public class ProductControllerAdvice {
         log.error(exception.getLocalizedMessage());
         ErrorDto error= ProductUtil.createErrorDto("PRODUCT_1003", exception.getMessage());
         ResponseDto responseDto= ResponseDto.forError(error);
+
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<?> handleMethodArgumentNotValidException(MethodArgumentNotValidException ex){
+        log.error(ex.getMessage());
+        BindingResult bindingResult= ex.getBindingResult();
+        List<FieldError> fieldErrors= bindingResult.getFieldErrors();
+        List<ErrorDto> errors= new ArrayList<>();
+        fieldErrors.stream().forEach(error -> {
+            log.error(error.getDefaultMessage());
+            ErrorDto errorDto= ProductUtil.createErrorDto("Product_1005", error.getDefaultMessage());
+            errors.add(errorDto);
+        });
+
+        ResponseDto responseDto= ResponseDto.forError(errors);
 
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }

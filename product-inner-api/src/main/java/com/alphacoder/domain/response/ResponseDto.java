@@ -31,4 +31,8 @@ public class ResponseDto<T> {
     public static <T> ResponseDto<T> forError(ErrorDto... errors){
         return new ResponseDto<>(ResponseStatus.ERROR, Arrays.asList(errors));
     }
+
+    public static <T> ResponseDto<T> forError(List<ErrorDto> errors){
+        return new ResponseDto<>(ResponseStatus.ERROR, errors);
+    }
 }
