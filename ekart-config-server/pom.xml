@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.alphacoder</groupId>
-	<artifactId>trade-config-server</artifactId>
+	<artifactId>ekart-config-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>trade-config-server</name>
+	<name>ekart-config-server</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
