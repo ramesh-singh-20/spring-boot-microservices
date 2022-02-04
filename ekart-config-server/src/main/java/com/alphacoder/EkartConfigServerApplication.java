@@ -6,10 +6,10 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @SpringBootApplication
 @EnableConfigServer
-public class TradeConfigServerApplication {
+public class EkartConfigServerApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TradeConfigServerApplication.class, args);
+		SpringApplication.run(EkartConfigServerApplication.class, args);
 	}
 
 }
