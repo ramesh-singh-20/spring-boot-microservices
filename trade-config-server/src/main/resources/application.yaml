@@ -1,0 +1,12 @@
+server:
+  port: 9196
+
+spring:
+  application:
+    name:
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ramesh-singh-20/spring-boot-microservices/tree/main/trade-commom-config/local
+
