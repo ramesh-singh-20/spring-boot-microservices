@@ -14,12 +14,8 @@ spring:
           show-sql: true
   profiles:
     active: ${ENV}
-eureka:
-  client:
-    register-with-eureka: true
-  fetch-registry: true
-  instance:
-    instance-id: ${spring.application.name}:${random.uuid}
+  config:
+    import: configserver:${SPRING_CLOUD_CONFIG_URI:http://localhost:9196}
 
 server:
   port: 0
