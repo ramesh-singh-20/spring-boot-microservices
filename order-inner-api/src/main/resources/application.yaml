@@ -14,12 +14,6 @@ spring:
           show-sql: true
   profiles:
     active: ${ENV}
-eureka:
-  client:
-    register-with-eureka: true
-  fetch-registry: true
-  instance:
-    instance-id: ${spring.application.name}:${random.uuid}
 
 server:
   port: 0
