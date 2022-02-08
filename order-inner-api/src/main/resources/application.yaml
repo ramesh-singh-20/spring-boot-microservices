@@ -4,6 +4,3 @@ spring:
   profiles:
     active: ${ENV}
 
-server:
-  port: 0
-
