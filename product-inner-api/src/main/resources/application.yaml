@@ -1,6 +1,12 @@
 spring:
   application:
-    name: PRODUCT-INNER-API
+    name: product-inner-api
   profiles:
     active: ${ENV}
+
+server:
+  port: 0
+
+app:
+  test: local
 
