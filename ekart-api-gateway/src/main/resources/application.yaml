@@ -1,5 +1,17 @@
 spring:
   application:
-    name: EKART-API-GATEWAY
+    name: ekart-api-gateway
   profiles:
     active: ${ENV}
+
+  cloud:
+    gateway:
+      routes:
+        - id: product-inner-api
+          uri: lb://product-inner-api
+          predicates:
+            - Path=/products/**
+        - id: order-inner-api
+          uri: lb://order-inner-api
+          predicates:
+            - Path=/orders/**
