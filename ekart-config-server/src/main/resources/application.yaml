@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: EKART-CONFIG-SERVER
+    name: ekart-config-server
   cloud:
     config:
       server:
