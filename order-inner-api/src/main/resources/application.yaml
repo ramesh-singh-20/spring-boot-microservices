@@ -1,6 +1,5 @@
 spring:
   application:
-    name: ORDER-INNER-API
+    name: order-inner-api
   profiles:
     active: ${ENV}
-
