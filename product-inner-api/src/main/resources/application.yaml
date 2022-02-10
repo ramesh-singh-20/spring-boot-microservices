@@ -4,9 +4,3 @@ spring:
   profiles:
     active: ${ENV}
 
-server:
-  port: 0
-
-app:
-  test: local
-
