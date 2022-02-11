@@ -1,3 +1,18 @@
 spring:
   config:
     import: configserver:http://localhost:9196
+  main:
+    allow-bean-definition-overriding: true
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuerUri: http://localhost:8180/auth/realms/ekart
+        registration:
+          ekart-api-gateway:
+                    clientId: ekart-api-gateway
+                    clientSecret: Gd08a9nWULWGRi4E6Rnjrm3V3nb9XoAc
+                    provider: keycloak
+                    authorizationGrantType: authorization_code
+                    redirectUri: http://localhost:8989/login/oauth2/code/ekart-api-gateway
