@@ -4,3 +4,8 @@ spring:
 
   config:
     import: configserver:http://localhost:9196
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8180/auth/realms/ekart
